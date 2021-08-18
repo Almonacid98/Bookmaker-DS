@@ -134,3 +134,4 @@ dmypy.json
 pyvenv.cfg
 .vs/
 ../.idea/
+../.vscode/
