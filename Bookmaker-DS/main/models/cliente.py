@@ -7,11 +7,11 @@ class Cliente(db.Model):
     __nombre = db.Column('nombre', db.String(50), nullable = False)
     __mail = db.Column('mail', db.String(120), nullable = False)
 
-    def __init__(self, id, apellido, nombre, mail):
-        self.__id = id
-        self.__apellido = apellido
-        self.__nombre = nombre
-        self.__mail = mail
+  #  def __init__(self, id, apellido, nombre, mail):
+     #   self.__id = id
+     #   self.__apellido = apellido
+     #   self.__nombre = nombre
+    #    self.__mail = mail
 
     def __repr__(self):
         return f'<Cliente: {self.__id} {self.__mail} >'
@@ -63,15 +63,3 @@ class Cliente(db.Model):
     @mail.deleter
     def mail(self):
         del self.__mail
-
-    @staticmethod
-    def from_json(cliente_json):
-        id = cliente_json.get('id')
-        apellido = cliente_json.get('apellido')
-        nombre = cliente_json.get('nombre')
-        mail = cliente_json.get('mail')
-        return Cliente(id = id,
-                        apellido = apellido,
-                        nombre = nombre, 
-                        mail = mail,
-                        )
