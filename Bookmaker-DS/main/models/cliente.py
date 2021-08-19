@@ -64,15 +64,6 @@ class Cliente(db.Model):
     def mail(self):
         del self.__mail
 
-    def to_json(self):
-        cliente_json = {
-            'id' : self.__id,
-            'apellido' : str(self.__apellido),
-            'nombre' : self.__nombre,
-            'mail' : self.__mail
-        }
-        return cliente_json
-
     @staticmethod
     def from_json(cliente_json):
         id = cliente_json.get('id')
