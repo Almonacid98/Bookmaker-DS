@@ -2,25 +2,78 @@ from main import db
 
 class Cliente(db.Model):
     
-    id = db.Column(db.Integer, primary_key = True)
-    apellido = db.Column(db.String(50), nullable = False)
-    nombre = db.Column(db.String(50), nullable = False)
-    mail = db.Column(db.String(120), nullable = False)
+    __id = db.Column('id', db.Integer, primary_key = True)
+    __apellido = db.Column('apellido', db.String(50), nullable = False)
+    __nombre = db.Column('nombre', db.String(50), nullable = False)
+    __mail = db.Column('mail', db.String(120), nullable = False)
+
+    def __init__(self, id, apellido, nombre, mail):
+        self.__id = id
+        self.__apellido = apellido
+        self.__nombre = nombre
+        self.__mail = mail
 
     def __repr__(self):
         return f'<Cliente: {self.__id} {self.__mail} >'
 
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def id(self, id):
+        self.__id = id
+    
+    @id.deleter
+    def id(self):
+        del self.__id
+    
+    @property
+    def apellido(self):
+        return self.__apellido
+
+    @apellido.setter
+    def apellido(self, apellido):
+        self.__apellido = apellido
+    
+    @apellido.deleter
+    def apellido(self):
+        del self.__apellido
+
+    @property
+    def nombre(self):
+        return self.__nombre
+
+    @nombre.setter
+    def nombre(self, nombre):
+        self.__nombre = nombre
+    
+    @nombre.deleter
+    def nombre(self):
+        del self.__nombre
+    
+    @property
+    def mail(self):
+        return self.__mail
+
+    @mail.setter
+    def mail(self, mail):
+        self.__mail = mail
+    
+    @mail.deleter
+    def mail(self):
+        del self.__mail
+
     def to_json(self):
         cliente_json = {
-            'id' : self.id,
-            'apellido' : str(self.apellido),
-            'nombre' : self.nombre,
-            'mail' : self.mail
+            'id' : self.__id,
+            'apellido' : str(self.__apellido),
+            'nombre' : self.__nombre,
+            'mail' : self.__mail
         }
         return cliente_json
 
     @staticmethod
-
     def from_json(cliente_json):
         id = cliente_json.get('id')
         apellido = cliente_json.get('apellido')
