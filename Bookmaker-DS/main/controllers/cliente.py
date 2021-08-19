@@ -3,14 +3,16 @@ from flask import request
 from flask import request, jsonify
 from .. import db
 from main.models import ClienteModel
+from main.map import ClienteSchema
 
+cliente_schema = ClienteSchema()
 class Cliente(Resource):
 
     def get(self, id):
         
         cliente = db.session.query(ClienteModel).get_or_404(id)
-        return cliente.to_json()
-
+        return cliente_schema.dump(cliente)
+        
     def delete(self, id):
         
         cliente = db.session.query(ClienteModel).get_or_404(id)
@@ -26,7 +28,7 @@ class Cliente(Resource):
             setattr(cliente, key, value)
         db.session.add(cliente)
         db.session.commit()
-        return cliente.to_json(), 201
+        return cliente_schema.dump(cliente), 201
 
 class Clientes(Resource):
 
@@ -42,17 +44,13 @@ class Clientes(Resource):
                     page = int(value)
                 if key == 'per_page':
                     per_page = int(value)
-        clientes = clientes.paginate(page, per_page, True, 30) 
+        #clientes = clientes.paginate(page, per_page, True, 30) 
 
-        return jsonify({'clientes': [cliente.to_json() for cliente in clientes.items],
-        'total': clientes.total,
-        'pages': clientes.pages,
-        'page': page
-        })
+        return cliente_schema.dump(clientes.all(), many = True)
     
     def post(self): 
 
         cliente = ClienteModel.from_json(request.get_json())
         db.session.add(cliente)
         db.session.commit()
-        return cliente.to_json(), 201
+        return cliente_schema.dump(cliente), 201
