@@ -2,7 +2,9 @@ from marshmallow import Schema, fields, validate
 from marshmallow.decorators import post_load
 from main.models import ClienteModel
 
+
 class ClienteSchema(Schema):
+    
     id = fields.Int(dump_only = True)
     apellido = fields.Str(required = True)
     nombre = fields.Str(required = True)
