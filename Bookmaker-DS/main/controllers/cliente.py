@@ -4,6 +4,7 @@ from flask import request, jsonify
 from .. import db
 from main.models import ClienteModel
 from main.map import ClienteSchema
+from main.map import ClienteFiltros
 
 cliente_schema = ClienteSchema()
 class Cliente(Resource):
@@ -33,25 +34,18 @@ class Cliente(Resource):
 class Clientes(Resource):
 
     def get(self):
-    
-        page = 1
-        per_page = 10
+        
+        filtros = request.data
         clientes = db.session.query(ClienteModel)
-        if request.get_json():
-            filters = request.get_json().items()
-            for key, value in filters:
-                if key == 'page':
-                    page = int(value)
-                if key == 'per_page':
-                    per_page = int(value)
-        #clientes = clientes.paginate(page, per_page, True, 30) 
-
-        return cliente_schema.dump(clientes.all(), many = True)
+        cliente_filtro = ClienteFiltros(clientes)
+        for key, value in request.get_json().items():
+            consulta = cliente_filtro.aplicar_filtro(key, value)
+        return cliente_schema.dump(consulta.all(), many = True)
     
     def post(self): 
 
-        cliente = cliente_schema.load(request.get_json())
-        db.session.add(cliente)
+        clientes = cliente_schema.load(request.get_json())
+        db.session.add(clientes)
         db.session.commit()
-        return cliente_schema.dump(cliente), 201
+        return cliente_schema.dump(clientes), 201
         
