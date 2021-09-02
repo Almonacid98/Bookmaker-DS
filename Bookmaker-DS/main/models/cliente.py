@@ -1,22 +1,17 @@
 from main import db
+from sqlalchemy.ext.hybrid import hybrid_property
 
 class Cliente(db.Model):
-    
+    __tablename__ = "clientes"
     __id = db.Column('id', db.Integer, primary_key = True)
     __apellido = db.Column('apellido', db.String(50), nullable = False)
     __nombre = db.Column('nombre', db.String(50), nullable = False)
     __mail = db.Column('mail', db.String(120), nullable = False)
 
-  #  def __init__(self, id, apellido, nombre, mail):
-     #   self.__id = id
-     #   self.__apellido = apellido
-     #   self.__nombre = nombre
-    #    self.__mail = mail
-
     def __repr__(self):
         return f'<Cliente: {self.__id} {self.__mail} >'
 
-    @property
+    @hybrid_property
     def id(self):
         return self.__id
 
@@ -28,7 +23,7 @@ class Cliente(db.Model):
     def id(self):
         del self.__id
     
-    @property
+    @hybrid_property
     def apellido(self):
         return self.__apellido
 
@@ -40,7 +35,7 @@ class Cliente(db.Model):
     def apellido(self):
         del self.__apellido
 
-    @property
+    @hybrid_property
     def nombre(self):
         return self.__nombre
 
@@ -52,7 +47,7 @@ class Cliente(db.Model):
     def nombre(self):
         del self.__nombre
     
-    @property
+    @hybrid_property
     def mail(self):
         return self.__mail
 
