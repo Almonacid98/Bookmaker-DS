@@ -45,21 +45,3 @@ class Empresa(db.Model):
     @mail.deleter
     def mail(self):
         del self.__mail
-
-    def to_json(self):
-        cliente_json = {
-            'id' : self.__id,
-            'razon_social' : str(self.__razon_social),
-            'mail' : self.__mail
-        }
-        return cliente_json
-
-    @staticmethod
-    def from_json(cliente_json):
-        id = cliente_json.get('id')
-        razon_social = cliente_json.get('razon_social')
-        mail = cliente_json.get('mail')
-        return Empresa(id = id,
-                        razon_social = razon_social,
-                        mail = mail,
-                        )
