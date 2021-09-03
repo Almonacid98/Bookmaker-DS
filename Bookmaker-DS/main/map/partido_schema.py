@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields, validate
 from marshmallow.decorators import post_load
 from main.models import PartidoModel
-from main.map import CuotaSchema
+from .cuota_schema import CuotaSchema
 
 class PartidoSchema(Schema):
     
