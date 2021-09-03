@@ -2,6 +2,7 @@ from .. import db
 from sqlalchemy.ext.hybrid import hybrid_property
 
 class Partido(db.Model):
+    __tablename__ = "partidos"
     __id = db.Column('id', db.Integer, primary_key = True)
     __fecha = db.Column('fecha', db.DateTime, nullable = False)
     __equipo_local = db.Column('equipo_local', db.ForeignKey('equipo.id'), nullable = False)

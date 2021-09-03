@@ -7,7 +7,7 @@ class Equipo(db.Model):
     __nombre = db.Column('nombre', db.String(50), nullable = False)
     __escudo = db.Column('escudo', db.String(50), nullable = False)
     __pais = db.Column('pais', db.String(50), nullable = False)
-    __puntaje = db.Column('puntaje', db.Integer)
+    __puntaje = db.Column('puntaje', db.Float, nullable = False)
 
     def __repr__(self):
         return f'<Cliente: {self.__id} {self.__nombre} {self.__escudo}  {self.__pais} {self.__puntaje}>'

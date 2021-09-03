@@ -2,6 +2,7 @@ from .. import db
 from sqlalchemy.ext.hybrid import hybrid_property
 
 class Apuesta(db.Model):
+    __tablename__ = "apuestas"
     __id = db.Column('id', db.Integer, primary_key = True)
     __fecha = db.Column('fecha', db.DateTime, nullable = False)
     __monto = db.Column('monto', db.Float)
