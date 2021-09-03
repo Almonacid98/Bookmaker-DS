@@ -6,3 +6,4 @@ flask-jwt-extended
 flask-mail
 flask_marshmallow
 sqlalchemy_filters
+Faker
